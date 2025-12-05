@@ -64,12 +64,17 @@ app.use('/api/de-nghi-khen-thuong', deNghiKhenThuongRoutes);
 // Kết nối database
 const PORT = process.env.PORT || 3000;
 
+// Thêm dòng này để kiểm tra xem code có chạy đến đây không
+console.log('--- Đang bắt đầu kết nối đến Database... ---');
+console.log(`--- DB Info: Host=${process.env.DB_HOST}, User=${process.env.DB_USER}, DB=${process.env.DB_NAME} ---`);
+
 sequelize.authenticate().then(() => {
-  console.log('Database connected successfully!');
+  console.log('Kết nối Database THÀNH CÔNG!');
   app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server đang chạy tại http://localhost:${PORT}`);
   });
 }).catch(err => {
-  console.error('Unable to connect to database:', err);
-  process.exit(1);
+  console.error('KẾT NỐI DATABASE THẤT BẠI!');
+  console.error('Lỗi chi tiết:', err.message); 
+  // process.exit(1); 
 });
